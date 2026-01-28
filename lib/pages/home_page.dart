@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:front_personne/model/personne.dart';
-import 'package:front_personne/service/api_service.dart';
+import 'package:front_personne/models/personne.dart';
+import 'package:front_personne/services/api_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

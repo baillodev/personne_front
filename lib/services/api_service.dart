@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:front_personne/model/personne.dart';
+import 'package:front_personne/models/personne.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
