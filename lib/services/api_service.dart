@@ -36,7 +36,6 @@ class ApiService {
         final rest = await http.get(Uri.parse(backend.getUrl));
         if (rest.statusCode == 200) {
           final data = jsonDecode(rest.body);
-          //final data = body['data'] ?? body;
           return (data as List).map((e) => Personne.fromJson(e)).toList();
         }
       } catch (_) {
