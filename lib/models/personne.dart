@@ -3,14 +3,14 @@ class Personne {
   final String nom;
   final String prenom;
   final String age;
-  final String photo;
+  final String? photo;
 
   Personne({
     required this.id,
     required this.nom,
     required this.prenom,
     required this.age,
-    required this.photo
+    this.photo
   });
 
   factory Personne.fromJson(Map<String, dynamic> json) {

@@ -8,10 +8,10 @@ class ApiService {
   static final backends = [
     // PHP
     Backend(
-      getUrl: 'http://localhost/backend-personne/api/get_personnes.php',
-      createUrl: 'http://localhost/backend-personne/api/add_personne.php',
-      updateUrl: 'http://localhost/backend-personne/api/update_personne.php',
-      deleteUrl: 'http://localhost/backend-personne/api/delete_personne.php',
+      getUrl: 'http://localhost/backend-personne/get_personnes.php',
+      createUrl: 'http://localhost/backend-personne/add_personne.php',
+      updateUrl: 'http://localhost/backend-personne/update_personne.php',
+      deleteUrl: 'http://localhost/backend-personne/delete_personne.php',
     ),
     // FastAPI
     Backend(
@@ -35,8 +35,8 @@ class ApiService {
       try {
         final rest = await http.get(Uri.parse(backend.getUrl));
         if (rest.statusCode == 200) {
-          final body = jsonDecode(rest.body);
-          final data = body['data'] ?? body;
+          final data = jsonDecode(rest.body);
+          //final data = body['data'] ?? body;
           return (data as List).map((e) => Personne.fromJson(e)).toList();
         }
       } catch (_) {
