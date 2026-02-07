@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_personne/models/personne.dart';
+import 'package:front_personne/pages/add_person_page.dart';
+import 'package:front_personne/pages/edit_personne_page.dart';
 import 'package:front_personne/services/api_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,15 +36,20 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => AddPersonPage()),
+          );
+        },
       ),
       body: FutureBuilder(
         future: person,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(),);
+            return Center(child: CircularProgressIndicator());
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("No data !"),);
+            return Center(child: Text("No data !"));
           }
 
           return ListView.builder(
@@ -55,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
-                      "http://localhost/personne-backend/api/${p.photo}"
+                      "http://localhost/personne-backend/api/${p.photo}",
                     ),
                   ),
                   title: Text("${p.nom} ${p.prenom}"),
@@ -64,23 +71,30 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.edit, color: Colors.orange)
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => EditPersonnePage(personne: p),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.edit, color: Colors.orange),
                       ),
                       IconButton(
                         onPressed: () async {
                           await ApiService.deletePersonne(p.id);
                           refresh();
                         },
-                        icon: Icon(Icons.delete, color: Colors.red)
+                        icon: Icon(Icons.delete, color: Colors.red),
                       ),
                     ],
                   ),
-                )
+                ),
               );
-            }
+            },
           );
-        }
+        },
       ),
     );
   }
